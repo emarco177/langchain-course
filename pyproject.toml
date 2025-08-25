@@ -10,6 +10,7 @@ dependencies = [
     "langchain>=0.3.27",
     "langchain-openai>=0.3.31",
     "langchain-pinecone>=0.2.11",
+    "langchain-text-splitters>=1.0.0",
     "langchain-unstructured>=1.0.1",
     "python-dotenv>=1.1.1",
     "unstructured>=0.23.1",
