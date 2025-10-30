@@ -4,7 +4,6 @@ from langchain_ollama import ChatOllama
 # LangChain Classic (v1)
 from langchain_classic.agents import create_react_agent, AgentExecutor
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import PydanticOutputParser
 
 from langchain_tavily import TavilySearch
 from schemas import AgentResponse
@@ -23,10 +22,11 @@ llm = ChatOllama(
     repeat_penalty=1.2,
 )
 
-# ---- Build the prompt with format-instructions ONLY for the Final Answer ----
-output_parser = PydanticOutputParser(pydantic_object=AgentResponse)
+# ---- Build the prompt ----
+# Provide format instructions to guide the agent, even though we'll parse with structured output
+format_instructions = f"Output JSON with schema: {AgentResponse.model_json_schema()}"
 react_prompt = ChatPromptTemplate.from_template(REACT_CHAT_JSON_FINAL).partial(
-    format_instructions=output_parser.get_format_instructions()
+    format_instructions=format_instructions
 )
 
 # ---- ReAct (text) agent ----
@@ -41,12 +41,18 @@ agent_executor = AgentExecutor(
     return_intermediate_steps=False,
 )
 
+# ---- LLM with structured output for parsing final answer ----
+structured_llm = llm.with_structured_output(AgentResponse)
+
 def main():
     res = agent_executor.invoke({
         "input": "What is the current weather in Cairo, Egypt?",
         "chat_history": [],
     })
-    print(res["output"])  # expected to be JSON per AgentResponse
+    
+    # Parse the output with structured output
+    parsed_output = structured_llm.invoke(res["output"])
+    print(parsed_output)
 
 if __name__ == "__main__":
     main()
