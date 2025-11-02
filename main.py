@@ -1,20 +1,15 @@
 from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
-
-# LangChain Classic (v1)
-from langchain_classic.agents import create_react_agent, AgentExecutor
-from langchain_core.prompts import ChatPromptTemplate
-
+from langchain.agents import create_agent
 from langchain_tavily import TavilySearch
 from schemas import AgentResponse
-from prompt import REACT_CHAT_JSON_FINAL
 
 load_dotenv()
 
-# ---- Tools (for the AGENT only) ----
+# ---- Tools ----
 tools = [TavilySearch()]  # ensure TAVILY_API_KEY is set
 
-# ---- LLM (no tool_choice binding) ----
+# ---- LLM ----
 llm = ChatOllama(
     model="gpt-oss:20b",
     temperature=0,
@@ -22,37 +17,30 @@ llm = ChatOllama(
     repeat_penalty=1.2,
 )
 
-# ---- Build the prompt ----
-# Provide format instructions to guide the agent, even though we'll parse with structured output
-format_instructions = f"Output JSON with schema: {AgentResponse.model_json_schema()}"
-react_prompt = ChatPromptTemplate.from_template(REACT_CHAT_JSON_FINAL).partial(
-    format_instructions=format_instructions
-)
+# ---- System Prompt ----
+system_prompt = """You are a helpful AI assistant with access to search tools.
+When answering questions, use the available tools to find accurate, up-to-date information.
+Always cite your sources by including the URLs you found information from."""
 
-# ---- ReAct (text) agent ----
-agent = create_react_agent(llm, tools, prompt=react_prompt)
-
-agent_executor = AgentExecutor(
-    agent=agent,
+# ---- Create Agent with Structured Output ----
+agent = create_agent(
+    model=llm,
     tools=tools,
-    verbose=True,
-    handle_parsing_errors=True,
-    max_iterations=250,
-    return_intermediate_steps=False,
+    system_prompt=system_prompt,
+    response_format=AgentResponse,  # Built-in structured output support
 )
-
-# ---- LLM with structured output for parsing final answer ----
-structured_llm = llm.with_structured_output(AgentResponse)
 
 def main():
-    res = agent_executor.invoke({
-        "input": "What is the current weather in Cairo, Egypt?",
-        "chat_history": [],
+    # Invoke agent with messages
+    result = agent.invoke({
+        "messages": [
+            {"role": "user", "content": "What is the current weather in Cairo, Egypt?"}
+        ]
     })
     
-    # Parse the output with structured output
-    parsed_output = structured_llm.invoke(res["output"])
-    print(parsed_output)
+    # Access structured response
+    print("Structured Response:")
+    print(f"Answer: {result['structured_response']}")
 
 if __name__ == "__main__":
     main()
