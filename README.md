@@ -21,7 +21,8 @@ This course takes you through building 7 real-world AI agent projects, from simp
 | Project | Type | Description |
 |---------|------|-------------|
 | 👋 [LangChain Hello World](https://github.com/emarco177/langchain-course/tree/project/hello-world) | Branch (`project/hello-world`) | Your first AI agent - basic structure and LLM integration |
-| 🔎 [Search Agent](https://github.com/emarco177/langchain-course/tree/project/ReAct-search-agent) | Branch (`project/ReAct-search-agent`) | ReAct agent with search capabilities |
+| 🔎  [Modern Search Agent](https://github.com/emarco177/ice_breaker/tree/project/search-agent) | Branch (`project/search-agent`) | Build search agents using LangChain v.1's `create_agent` interface with custom tools, Tavily integration, and structured outputs |
+| 🔎 [Classic ReAct Search Agent](https://github.com/emarco177/langchain-course/tree/project/ReAct-search-agent) | Branch (`project/ReAct-search-agent`) | ReAct agent with search capabilities using the original `create_react_agent` from langchain-classic |
 | 🧠 [ReAct Algorithm Under the Hood](https://github.com/emarco177/langchain-course/tree/project/ReAct-Algo) | Branch (`project/ReAct-Algo`) | Understanding reasoning and acting patterns in AI agents |
 | 📄 [RAG Gist](https://github.com/emarco177/langchain-course/tree/project/rag-gist) | Branch (`project/rag-gist`) | The gist of retrieval-augmented generation |
 | 📚 [Documentation Helper](https://github.com/emarco177/documentation-helper) | External Repo | Intelligent documentation assistant |
