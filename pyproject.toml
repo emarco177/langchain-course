@@ -10,5 +10,6 @@ dependencies = [
     "langchain>=1.0.8",
     "langchain-deepseek>=1.0.1",
     "langchain-ollama>=1.0.0",
+    "langchain-tavily>=0.2.13",
     "python-dotenv>=1.2.1",
 ]
