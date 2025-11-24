@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
-from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 import os
 
 load_dotenv()
@@ -24,25 +24,26 @@ Kittan finds direction when a committed kabaddi coach, Kandeeban, spots his raw 
     """
 
     Summary_template="""
-    given the information (information_text) about a movie  I want you to create
+    given the information {information_text} about a movie.  I want you to create
     1.A short summary
     2.two intresting factors about the movie
     """
 
     summary_prompt_template=PromptTemplate(
-        input_variables=[information_text],template=Summary_template
+        input_variables=["information_text"],template=Summary_template
     )
 
-    llm= ChatOpenAI(
-        model="gpt-5",
+    llm= ChatOllama(
+        model="gemma3:270m",
         temperature=0,
+        base_url="http://localhost:11434"
     )
     chain = summary_prompt_template | llm
 
     
 
     response = chain.invoke({"information_text": information_text})
-    print(response)
+    print(response.content)
 
 
 if __name__ == "__main__":
