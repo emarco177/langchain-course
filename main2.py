@@ -73,10 +73,15 @@ def main():
 
     ReAct 파서는 Thought→Action→Action Input→Observation→…→Final Answer 순서를 기대한다.
     get_text_length 이 3이라는 정답을 알려줬어도 action 을 사용한 턴에는 Final Answer 를 내는게 아니라 
-    
+
     Thought: I now know the final answer
     Final Answer: the final answer to the original input question  
     이 과정이 필요했는데 바로 final answer 를 같이 내서 ReAct parser 가 실패
+    
+    gemini3 
+    결론: 작성하신 주석은 문제 상황을 이해하는 데 충분하며 적절합니다. "도구가 답을 줬다"는 표현만 "LLM이 도구의 결과(Observation)까지 스스로 생성해버렸다"는 뉘앙스로 이해하시면 완벽합니다.
+    참고: 이 문제를 해결하려면 에러 메시지의 제안처럼 handle_parsing_errors=True를 쓰거나, LLM이 Observation: 토큰에서 생성을 멈추도록 강제하는 설정(stop sequence)이 잘 적용되었는지 확인하는 것이 좋습니다.
+    
     """
     print(result)
 
