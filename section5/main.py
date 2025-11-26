@@ -91,7 +91,6 @@ if __name__ == "__main__":
             tool = agent_step.tool
             tool_to_use = find_tool_by_name(tools, tool)
             tool_input = agent_step.tool_input
-
             observation = tool_to_use.func(str(tool_input))
             print(f"observation = {observation}")
             intermediate_steps.append((agent_step, str(observation)))
