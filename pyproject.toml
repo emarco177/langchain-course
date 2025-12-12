@@ -8,7 +8,9 @@ dependencies = [
     "langchain>=1.1.2",
     "langchain-ollama>=1.0.0",
     "langchain-openai>=1.1.0",
+    "langchain-tavily>=0.2.13",
     "openai>=2.9.0",
     "python-dotenv>=1.2.1",
     "ruff>=0.14.8",
+    "tavily-python>=0.7.14",
 ]
