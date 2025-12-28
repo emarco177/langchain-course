@@ -3,14 +3,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from langchain.agents import create_agent
-from langchain_openai import ChatOpenAI
 from langchain_tavily import TavilySearch
+from azure_env import llm
 
 from schemas import AgentResponse
 
 tools = [TavilySearch()]
-llm = ChatOpenAI(model="gpt-4o")
-
 
 agent = create_agent(
     model=llm,
