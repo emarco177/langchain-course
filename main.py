@@ -1,9 +1,9 @@
 from typing import List
 
-from dotenv import load_dotenv
-from langchain_core.messages import HumanMessage, ToolMessage
+from langchain_core.messages import BaseMessage, HumanMessage, ToolMessage
 from langchain.tools import tool, BaseTool
-from langchain_openai import ChatOpenAI
+from azure_env import llm
+from dotenv import load_dotenv
 
 from callbacks import AgentCallbackHandler
 
@@ -32,14 +32,10 @@ if __name__ == "__main__":
     print("Hello LangChain Tools (.bind_tools)!")
     tools = [get_text_length]
 
-    llm = ChatOpenAI(
-        temperature=0,
-        callbacks=[AgentCallbackHandler()],
-    )
     llm_with_tools = llm.bind_tools(tools)
 
     # Start conversation
-    messages = [HumanMessage(content="What is the length of the word: DOG")]
+    messages: List[BaseMessage] = [HumanMessage(content="What is the length of the word: DOG")]
 
     while True:
         ai_message = llm_with_tools.invoke(messages)
