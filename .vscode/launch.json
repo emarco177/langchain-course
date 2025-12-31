@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        }
+    ]
+}
+
+// {
+//     // Use IntelliSense to learn about possible attributes.
+//     // Hover to view descriptions of existing attributes.
+//     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Python: Debug Tests",
+//             "type": "debugpy",
+//             "request": "launch",
+//             "purpose": ["debug-test"],          // 👈 this is the magic
+//             //     "module": "pytest",          // 👈 this is the magic 
+//             "program": "${workspaceFolder}/.venv/bin/pytest", 
+//             "args": [
+//                 "-q",
+//                 "-s"
+//             ],
+//             "console": "integratedTerminal",
+//             "cwd": "${workspaceFolder}",
+//             "justMyCode": false,
+//             "env": {
+//                 "AWS_PROFILE": "infosys-software",
+//                 "AWS_DEFAULT_REGION": "us-gov-west-1",
+//                 "AWS_SDK_LOAD_CONFIG": "1"
+//             }
+//         }        
+//         // {
+//         //     "name": "Python Debugger: Current File",
+//         //     "type": "debugpy",
+//         //     "request": "launch",
+//         //     "program": "${file}",
+//         //     "console": "integratedTerminal",
+//         //     // "redirectOutput": false,
+//         //     "cwd": "${workspaceFolder}",
+//         //     // "args": ["-q", "-s", "${file}"],
+//         //     "args": ["-q", "-s"],
+//         //     "justMyCode": false,
+//         //     "env": {
+//         //         // "AWS_PROFILE": "corpeng",
+//         //         "AWS_PROFILE": "infosys-software",
+//         //         "AWS_DEFAULT_REGION": "us-gov-west-1",
+//         //         "AWS_SDK_LOAD_CONFIG": "1"
+//         //     }
+//         // }
+//     ]
+// }
+
