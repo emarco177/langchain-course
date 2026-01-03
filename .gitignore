@@ -1,4 +1,4 @@
-azure_env.py
+azure_env*.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
