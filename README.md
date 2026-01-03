@@ -9,6 +9,7 @@ This branch (`project/search-agent`) demonstrates how to build search agents usi
 - Integrate third-party search APIs (Tavily)
 - Use LangChain's built-in tool integrations
 - Implement structured outputs with Pydantic models
+- Use RunnableLambda to extract structured responses from agent outputs
 
 ## Commits Overview
 
@@ -17,6 +18,7 @@ This branch (`project/search-agent`) demonstrates how to build search agents usi
 | 1 | [d2bd87f](https://github.com/emarco177/ice_breaker/commit/d2bd87f825f3558f6674fcde854767206bfcfe63) | intro to search agents | Project setup, creating custom search tools with `@tool` decorator, direct Tavily API integration, building an agent with `create_agent`, invoking agents with messages | Initial project setup with dependencies, created custom `search` function using `@tool`, direct `TavilyClient` integration, created agent using `create_agent(model=llm, tools=tools)`, invoked agent with `HumanMessage` |
 | 2 | [8f78259](https://github.com/emarco177/ice_breaker/commit/8f782592c4e6bd083a4973588b82514a87836975) | langchain tavily built in tool | Using LangChain's built-in tool integrations instead of custom tools, code simplification and best practices | Replaced custom `@tool` with `TavilySearch` from `langchain_tavily`, removed boilerplate code, cleaner implementation |
 | 3 | [ba398aa](https://github.com/emarco177/ice_breaker/commit/ba398aa03795ea3fbb341e2b599dce5aae59ebe4) | added structured output | Implementing structured outputs with Pydantic models, type-safe agent responses using `response_format` parameter | Added `Source` and `AgentResponse` BaseModels, configured `response_format` in `create_agent`, enforced predictable output structure |
+| 4 | - | using runnable lambda | Using RunnableLambda to extract structured responses from agent outputs with chain expression language | Added `RunnableLambda` import, created `extract_structured` runnable to extract `structured_response` key, chained agent with extractor using pipe operator (`agent | extract_structured`) |
 
 ## Running the Code
 
@@ -50,3 +52,4 @@ The agent searches for AI engineer job postings in the Bay Area on LinkedIn:
 - **Built-in Integrations**: LangChain provides pre-built tools that reduce boilerplate and improve maintainability
 - **Structured Outputs**: Using Pydantic models with `response_format` ensures type-safe, predictable agent responses
 - **Agent Interface**: The `create_agent` function provides a simple, consistent interface for building agents with different capabilities
+- - **RunnableLambda**: Use `RunnableLambda` to extract and transform structured responses from agent outputs, enabling clean data extraction using the chain expression language (`|` operator)
