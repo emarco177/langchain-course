@@ -52,4 +52,4 @@ The agent searches for AI engineer job postings in the Bay Area on LinkedIn:
 - **Built-in Integrations**: LangChain provides pre-built tools that reduce boilerplate and improve maintainability
 - **Structured Outputs**: Using Pydantic models with `response_format` ensures type-safe, predictable agent responses
 - **Agent Interface**: The `create_agent` function provides a simple, consistent interface for building agents with different capabilities
-- - **RunnableLambda**: Use `RunnableLambda` to extract and transform structured responses from agent outputs, enabling clean data extraction using the chain expression language (`|` operator)
+- **RunnableLambda**: Use `RunnableLambda` to extract and transform structured responses from agent outputs, enabling clean data extraction using the chain expression language (`|` operator)
