@@ -45,23 +45,19 @@ git diff cc7b496 6e20937  # Structured Output → Modern API
 ## Architecture Overview
 
 ```mermaid
-flowchart TD
-    A[User Query] --> B[LLM - GPT-4]
+flowchart LR
+    A[User Query] --> B[LLM]
     B --> C{Thought}
-    C --> D[Action: Select Tool]
-    D --> E[Tool Execution<br/>Tavily Search]
+    C --> D[Action]
+    D --> E[Tool: Tavily Search]
     E --> F[Observation]
-    F --> G{Need more info?}
-    G -->|Yes| C
-    G -->|No| H[Final Answer]
-    H --> I[Structured Response<br/>AgentResponse]
+    F --> G{Done?}
+    G -->|No| C
+    G -->|Yes| H[Final Answer]
+    H --> I[Structured Response]
 
     subgraph ReAct Loop
-        C
-        D
-        E
-        F
-        G
+        C --> D --> E --> F --> G
     end
 
     style A fill:#e1f5fe
