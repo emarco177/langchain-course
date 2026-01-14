@@ -44,38 +44,49 @@ git diff cc7b496 6e20937  # Structured Output → Modern API
 
 ## Architecture Overview
 
+```mermaid
+flowchart TD
+    A[User Query] --> B[LLM - GPT-4]
+    B --> C{Thought}
+    C --> D[Action: Select Tool]
+    D --> E[Tool Execution<br/>Tavily Search]
+    E --> F[Observation]
+    F --> G{Need more info?}
+    G -->|Yes| C
+    G -->|No| H[Final Answer]
+    H --> I[Structured Response<br/>AgentResponse]
+
+    subgraph ReAct Loop
+        C
+        D
+        E
+        F
+        G
+    end
+
+    style A fill:#e1f5fe
+    style I fill:#c8e6c9
+    style ReAct Loop fill:#fff3e0
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                        ReAct Agent                          │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   User Query                                                │
-│       │                                                     │
-│       ▼                                                     │
-│   ┌───────────────────────────────────────┐                │
-│   │              LLM (GPT-4)              │                │
-│   │   - Receives query + tool descriptions │                │
-│   │   - Generates Thought + Action         │                │
-│   └───────────────────────────────────────┘                │
-│       │                                                     │
-│       ▼                                                     │
-│   ┌───────────────────────────────────────┐                │
-│   │          Tool Execution               │                │
-│   │   - Tavily Search (web search)        │                │
-│   │   - Returns Observation               │                │
-│   └───────────────────────────────────────┘                │
-│       │                                                     │
-│       ▼                                                     │
-│   ┌───────────────────────────────────────┐                │
-│   │         Reasoning Loop                │                │
-│   │   - Repeat until Final Answer         │                │
-│   │   - Thought → Action → Observation    │                │
-│   └───────────────────────────────────────┘                │
-│       │                                                     │
-│       ▼                                                     │
-│   Structured Response (AgentResponse)                       │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+
+### ReAct Loop Explained
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant A as Agent LLM
+    participant T as Tool Tavily
+
+    U->>A: Question: Find AI engineer jobs
+
+    loop ReAct Loop
+        A->>A: Thought: I need to search for jobs
+        A->>T: Action: search AI engineer langchain bay area
+        T-->>A: Observation: Found 3 job postings...
+        A->>A: Thought: I have enough information
+    end
+
+    A->>U: Final Answer: Here are 3 jobs...
 ```
 
 ## Getting Started
