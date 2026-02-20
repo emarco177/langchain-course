@@ -9,6 +9,7 @@ dependencies = [
     "isort>=8.0.0",
     "langchain>=1.2.10",
     "langchain-ollama>=1.0.1",
-    "langchain-openapi>=0.1.1",
+    "langchain-openai>=0.2.0",
+    "langsmith[claude-agent-sdk]>=0.7.4",
     "python-dotenv>=1.2.1",
 ]
