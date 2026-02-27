@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "chromadb>=1.4.0",
+    "grandalf>=0.8",
     "langchain>=1.1.2",
     "langchain-chroma>=1.1.0",
     "langchain-classic>=1.0.0",

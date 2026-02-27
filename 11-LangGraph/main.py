@@ -30,7 +30,7 @@ flow.add_conditional_edges(AGENT_REASON, should_continue, {
 flow.add_edge(ACT, AGENT_REASON)
 
 app = flow.compile()
-app.get_graph().draw_mermaid_png(output_file_path="flow.png")
+app.get_graph().draw_mermaid_png(output_file_path="./11-LangGraph/flow.png")
 
 if __name__ == "__main__":
     print("Hello ReAct LangGraph with Function Calling")
