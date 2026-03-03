@@ -4,13 +4,13 @@
 
 This course is designed to teach you how to QUICKLY harness the power of the LangChain library for LLM applications. Build 3 end-to-end working LangChain based generative AI applications with no fluff, no toy examples - just real projects using real APIs and real-world skills.
 
-![LangChain Logo](/static/LangChain-logo.svg)
-![LangGraph Logo](/static/LangGraph%20wordmark%20-%20dark.svg)
+![LangChain Logo](/static/LangChain_OSS%20Lockup_light.png)
+![LangGraph Logo](/static/LangGraph_OSS%20Lockup_light.png)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/EdenMarco177?style=social)](https://twitter.com/EdenMarco177)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-[![udemy](https://img.shields.io/badge/LangChain%20Udemy%20Course%20Coupon%20%2412.99-brightgreen)](https://www.udemy.com/course/langchain/?couponCode=JAN-2026)
+[![udemy](https://img.shields.io/badge/LangChain%20Udemy%20Course%20Coupon%20%2412.99-brightgreen)](https://www.udemy.com/course/langchain/?couponCode=MARCH-2026)
 
 
 
@@ -22,8 +22,7 @@ This course takes you through building 7 real-world AI agent projects, from simp
 |---------|------|-------------|
 | 👋 [LangChain Hello World](https://github.com/emarco177/langchain-course/tree/project/hello-world) | Branch (`project/hello-world`) | Your first AI agent - basic structure and LLM integration |
 | 🔎  [Modern Search Agent](https://github.com/emarco177/ice_breaker/tree/project/search-agent) | Branch (`project/search-agent`) | Build search agents using LangChain v.1's `create_agent` interface with custom tools, Tavily integration, and structured outputs |
-| 🔎 [Classic ReAct Search Agent](https://github.com/emarco177/langchain-course/tree/project/ReAct-search-agent) | Branch (`project/ReAct-search-agent`) | ReAct agent with search capabilities using the original `create_react_agent` from langchain-classic |
-| 🧠 [ReAct Algorithm Under the Hood](https://github.com/emarco177/langchain-course/tree/project/ReAct-Algo) | Branch (`project/ReAct-Algo`) | Understanding reasoning and acting patterns in AI agents |
+| 🧠 [Agents Under The Hood](https://github.com/emarco177/langchain-course/tree/project/agents-under-the-hood) | Branch (`project/agents-under-the-hood`) | Understanding reasoning and acting patterns in AI agents |
 | 📄 [RAG Gist](https://github.com/emarco177/langchain-course/tree/project/rag-gist) | Branch (`project/rag-gist`) | The gist of retrieval-augmented generation |
 | 📚 [Documentation Helper](https://github.com/emarco177/documentation-helper) | External Repo | Intelligent documentation assistant |
 | 💻 [Code Interpreter](https://github.com/emarco177/langchain-course/tree/project/code-interpreter) | Branch (`project/code-interpreter`) | AI-powered code execution and analysis |
