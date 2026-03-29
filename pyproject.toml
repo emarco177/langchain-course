@@ -1,0 +1,19 @@
+[project]
+name = "langchain-course"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "black>=26.3.1",
+    "isort>=8.0.1",
+    "langchain>=1.2.13",
+    "langchain-openai>=1.1.12",
+    "langchain-tavily>=0.2.17",
+    "python-dotenv>=1.2.2",
+    "tavily-python>=0.7.23",
+]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
