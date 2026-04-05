@@ -59,7 +59,7 @@ This course takes you through building 7 real-world AI agent projects, from simp
 - Familiarity with: git, Python, environment variables, classes, testing and debugging
 - Python 3.10+
 - Any Python package manager (uv, poetry, pipenv) - but NOT conda!
-- Access to an LLM (can be open source via Ollama, or cloud providers like OpenAI, Anthropic, Gemini)
+- Access to an LLM (can be open source via Ollama, or cloud providers like OpenAI, Anthropic, Gemini, [MiniMax](https://www.minimaxi.com/en))
 - No Machine Learning experience needed
 
 ### ⚙️ Setup Instructions 
@@ -96,6 +96,28 @@ This course takes you through building 7 real-world AI agent projects, from simp
    - Each commit represents a lesson or feature implementation
    - Use `git log --oneline` to see the learning progression
    - Checkout previous commits to understand the development process
+
+4. **Use alternative LLM providers (optional)**
+
+   The `utils/llm_provider.py` module lets you swap LLM providers in any project branch:
+   ```bash
+   # Set your provider and API key
+   export LLM_PROVIDER=minimax
+   export MINIMAX_API_KEY=your-key-here
+
+   # Or use OpenAI (default), Anthropic, Google, Ollama
+   export LLM_PROVIDER=openai
+   export OPENAI_API_KEY=your-key-here
+   ```
+
+   Then in your code:
+   ```python
+   from utils.llm_provider import get_chat_model
+
+   llm = get_chat_model()  # auto-detects provider from env
+   ```
+
+   See `examples/` for complete usage examples.
 
 **External Projects:**
 - [Ice Breaker](https://github.com/emarco177/ice_breaker) - Social media profile analyzer
