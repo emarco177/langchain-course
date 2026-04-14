@@ -3,12 +3,14 @@ name = "langchain-course"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
-    "black>=25.1.0",
-    "isort>=6.0.1",
-    "langchain>=1.0.0",
-    "langchain-openai>=0.3.30",
-    "langchain-tavily>=0.2.11",
-    "python-dotenv>=1.1.1",
+    "black>=26.3.1",
+    "google-generativeai>=0.8.6",
+    "isort>=8.0.1",
+    "langchain>=1.2.15",
+    "langchain-groq>=1.1.2",
+    "langchain-tavily>=0.2.17",
+    "python-dotenv>=1.2.2",
+    "tavily-python>=0.7.23",
 ]
