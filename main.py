@@ -43,10 +43,10 @@ You are a Job Search Agent specialized in AI/ML roles.
 
 Search for the top 3 job listings that match ALL of the following criteria:
 
-**Role Type:** AI / ML / Generative AI Engineer or equivalent
-**Experience:** 3 to 5 years
-**Location:** Bengaluru, India (on-site or hybrid preferred, remote considered only if explicitly Bengaluru-based)
-**Mandatory Skills:** RAG, LLM, LangChain, LangGraph
+Role Type: AI / ML / Generative AI Engineer or equivalent
+Experience: 3 to 5 years
+Location: Bengaluru, India (on-site or hybrid preferred, remote considered only if explicitly Bengaluru-based)
+Mandatory Skills: RAG, LLM, LangChain, LangGraph
 
 For each job found, return the details in this exact format:
 
