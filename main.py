@@ -45,10 +45,10 @@ def custom_search(query: str) -> dict:
 
 llm = ChatOpenAI(model="gpt-4o-mini")
 # llm = ChatAnthropic(temperature=0, model="claude-haiku-4-5-20251001")
-# tools = [TavilySearch()]
-tools = [custom_search]
-# agent = create_agent(model=llm, tools=tools, response_format=AgentResponse)
-agent = create_agent(llm, tools)
+tools = [TavilySearch()]
+# tools = [custom_search]
+agent = create_agent(model=llm, tools=tools, response_format=AgentResponse)
+# agent = create_agent(llm, tools)
 
 def main():
     print("Hello from langchain-course!")
