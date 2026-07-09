@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ice Breaker</title>
+        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chgibb/css-spinners@2.2.1/css/spinner/three-quarters.min.css">
+        <style>
+            #error-message { 
+                color: red; 
+                text-align: center; 
+                margin-top: 10px; 
+                display: none; 
+            }
+            .copy-button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 0.9em;
+            }
+            .copy-button:hover {
+                background-color: #0056b3;
+            }
+            #result { 
+                display: none; 
+                text-align: left;
+            }
+
+
+            body.dark-mode {
+                background-color: #121212;
+                color: #ffffff;
+            }
+
+            #dark-mode-toggle {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                background-color: #333;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                z-index: 999;
+            }
+            #dark-mode-toggle:hover {
+                background-color: #555;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Simple Dark Mode Toggle Button -->
+        <button id="dark-mode-toggle">Dark Mode</button>
+
+        <header> 
+            <form id="name-form" style="margin: 0 auto">
+                <h1>Ice Breaker</h1>
+                <input type="text" id="name-input" name="name" placeholder="Enter name" required>
+                <button id="magic-button" type="submit" class="center">Do Your Magic</button>
+                <p id="error-message"></p>
+            </form>
+        </header>
+
+        <div id="spinner" style="text-align: center; display: none">
+            <span class="three-quarters-loader" style="width: 100px; height: 100px; border-radius: 50%; border-width: 12px;"></span>
+            <p>Fetching details...</p>
+        </div>
+
+        <main id="result">
+            <div>
+                <img id="profile-pic" src="" alt="Profile Picture" style="width: 300px; max-width: 100%; height: auto; border-radius: 50%; margin-bottom: 20px;">
+            </div>
+            <div>
+                <h2>Summary 
+                    <button class="copy-button" onclick="copyToClipboard()">📋 Copy</button>
+                </h2>
+                <p id="summary"></p>
+            </div>
+            <div>
+                <h2>Interesting Facts</h2>
+                <div id="facts"></div>
+            </div>
+            <div>
+                <h2>Ice Breakers</h2>
+                <div id="ice-breakers"></div>
+            </div>
+            <div>
+                <h2>Topics of Interest</h2>
+                <div id="topics-of-interest"></div>
+            </div>
+        </main>
+
+        <script>
+            const form = document.getElementById("name-form");
+            const spinner = document.getElementById("spinner");
+            const result = document.getElementById("result");
+            const errorMessage = document.getElementById("error-message");
+            const magicButton = document.getElementById("magic-button");
+            const nameInput = document.getElementById("name-input");
+            const darkModeBtn = document.getElementById("dark-mode-toggle");
+
+            // 1) Dark Mode Toggle (no localStorage, minimal approach)
+            darkModeBtn.addEventListener("click", () => {
+                document.body.classList.toggle("dark-mode");
+                darkModeBtn.textContent = document.body.classList.contains("dark-mode")
+                  ? "Light Mode"
+                  : "Dark Mode";
+            });
+
+            // 2) Original Working Code
+            form.addEventListener("submit", async (ev) => {
+                ev.preventDefault();
+
+                let name = nameInput.value.trim();
+                if (!name) {
+                    errorMessage.textContent = "Please enter a name!";
+                    errorMessage.style.display = "block";
+                    return;
+                }
+                errorMessage.style.display = "none";
+
+                result.style.display = "none";
+                spinner.style.display = "block";
+                magicButton.disabled = true;
+
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch("/process", { method: "POST", body: formData });
+
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+
+                    const data = await response.json();
+                    console.log("Received Data:", data);
+
+                    if (!data.summary_and_facts || !data.summary_and_facts.summary) {
+                        throw new Error("Invalid response format");
+                    }
+
+                    document.getElementById("profile-pic").src = data.picture_url || "default.jpg";
+                    document.getElementById("summary").textContent = data.summary_and_facts.summary || "No summary available.";
+                    createHtmlList(document.getElementById("facts"), data.summary_and_facts.facts || []);
+                    createHtmlList(document.getElementById("ice-breakers"), data.ice_breakers || []);
+                    createHtmlList(document.getElementById("topics-of-interest"), data.interests || []);
+
+                    result.style.display = "block";
+                } catch (error) {
+                    console.error("Fetch Error:", error);
+                    errorMessage.textContent = "An error occurred while fetching data. Please try again!";
+                    errorMessage.style.display = "block";
+                } finally {
+                    spinner.style.display = "none";
+                    magicButton.disabled = false;
+                }
+            });
+
+            function createHtmlList(element, items) {
+                if (!Array.isArray(items) || items.length === 0) {
+                    element.innerHTML = "<p>No data available.</p>";
+                    return;
+                }
+
+                const ul = document.createElement("ul");
+                items.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+
+                element.innerHTML = "";
+                element.appendChild(ul);
+            }
+
+            function copyToClipboard() {
+                const summaryText = document.getElementById("summary").textContent;
+                navigator.clipboard.writeText(summaryText).then(() => {
+                    alert("Summary copied to clipboard!");
+                }).catch(err => {
+                    console.error("Copy failed", err);
+                });
+            }
+        </script>
+    </body>
+</html>
