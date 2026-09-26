@@ -1,26 +1,6 @@
-"""04 · State is more than a string: messages, objects, and batches.
+"""04 · State can be JSON with LangChain messages inside, and .batch() works.
 
-So far the state we classified was a plain string. Jev's state can also be a JSON
-object or array, and — because this is the LangChain integration — LangChain
-`BaseMessage` objects can appear anywhere inside it. The classifier serializes
-messages to role/content JSON before sending, preserving the surrounding
-structure.
-
-Why this matters: an agent's state IS a list of messages. Being able to point a
-classifier at a conversation (plus any supporting facts, like a policy document)
-is the bridge between "Jev classifies text" and "Jev makes decisions inside an
-agent loop", which is where examples 05 and 06 go.
-
-Two guidelines from TypeSafe's docs on structuring state:
-  * Use an OBJECT for most requests so each part has a descriptive key and the
-    relationships are clear (`{"conversation": ..., "refund_policy": ...}`).
-  * Keep facts in state and judgments in questions. Reference state keys in
-    your instructions by name.
-
-Finally, `TypeSafeClassifier` is a Runnable, so `.batch()` (and `.ainvoke()`,
-`.abatch()`) work out of the box — handy for scoring a backlog of tickets.
-
-Needs only TYPESAFE_API_KEY.
+Needs TYPESAFE_API_KEY.
 """
 
 from dotenv import load_dotenv
@@ -29,7 +9,9 @@ from langchain_typesafe import Choice, Noul, TypeSafeClassifier
 
 load_dotenv()
 
-# --- 1. A conversation plus a policy, as one structured state -----------------
+classifier = TypeSafeClassifier()
+
+# --- 1. Messages + policy as one state -------------------------------------
 
 REFUND_POLICY = (
     "Full refund within 14 days of purchase for any reason. After 14 days, "
@@ -48,28 +30,30 @@ conversation = [
     ),
 ]
 
-refund_classifier = TypeSafeClassifier(
-    questions={
-        "eligible": Noul(
-            instructions=(
-                "Based on `conversation`, is the customer eligible for a refund "
-                "under `refund_policy`?"
-            )
-        ),
-        "next_step": Choice(
-            instructions="What should the agent do next, given `conversation`?",
-            criteria={
-                "issue_refund": "The request clearly qualifies; process it.",
-                "verify_outage": "Check outage records before deciding.",
-                "decline": "The request clearly does not qualify.",
-                "ask_for_details": "Key facts (dates, order id) are missing.",
-            },
-        ),
-    }
-)
+REFUND_QUESTIONS = {
+    "eligible": Noul(
+        # Reference state keys by name.
+        instructions=(
+            "Based on `conversation`, is the customer eligible for a refund "
+            "under `refund_policy`?"
+        )
+    ),
+    "next_step": Choice(
+        instructions="What should the agent do next, given `conversation`?",
+        criteria={
+            "issue_refund": "The request clearly qualifies; process it.",
+            "verify_outage": "Check outage records before deciding.",
+            "decline": "The request clearly does not qualify.",
+            "ask_for_details": "Key facts (dates, order id) are missing.",
+        },
+    ),
+}
 
-response = refund_classifier.invoke(
-    {"conversation": conversation, "refund_policy": REFUND_POLICY}
+response = classifier.invoke(
+    {
+        "state": {"conversation": conversation, "refund_policy": REFUND_POLICY},
+        "questions": REFUND_QUESTIONS,
+    }
 )
 
 print("Structured state (messages + policy)")
@@ -78,15 +62,13 @@ step = response.choices["next_step"]
 print(f"  next_step:  {step.choice}  (confidence {step.confidence:.3f})")
 print()
 
-# --- 2. Batch: score a backlog in one go --------------------------------------
+# --- 2. Batch a backlog ---------------------------------------------------
 
-tone_classifier = TypeSafeClassifier(
-    questions={
-        "churn_risk": Noul(
-            instructions="Does the customer sound likely to cancel their subscription?"
-        ),
-    }
-)
+CHURN_QUESTIONS = {
+    "churn_risk": Noul(
+        instructions="Does the customer sound likely to cancel their subscription?"
+    ),
+}
 
 backlog = [
     "Love the new dashboard, great work!",
@@ -95,7 +77,9 @@ backlog = [
     "Cancel my account immediately and stop charging me.",
 ]
 
-results = tone_classifier.batch(backlog)
+results = classifier.batch(
+    [{"state": m, "questions": CHURN_QUESTIONS} for m in backlog]
+)
 
 print("Batch: churn risk per message")
 for message, result in zip(backlog, results):
