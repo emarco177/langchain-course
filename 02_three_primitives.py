@@ -51,23 +51,14 @@ department = response.choices["department"]
 urgent = response.nouls["urgent"]
 frustration = response.scores["frustration"]
 
+
+def dist(probs: dict) -> str:
+    return "  ".join(f"{k}={v:.2f}" for k, v in probs.items())
+
+
 print(f"ticket: {TICKET!r}\n")
-
-print("Choice  · department")
-print(f"  choice:        {department.choice}")
-print(f"  confidence:    {department.confidence:.3f}")
-print("  probabilities:")
-for label, p in sorted(department.probabilities.items(), key=lambda kv: -kv[1]):
-    print(f"    {label:<10} {p:.3f}")
-
-print("\nNoul    · urgent")
-print(f"  noul:          {urgent.noul:.3f}  (P(yes); Noul has no separate confidence)")
-
-print("\nScore   · frustration")
-print(f"  score:         {frustration.score:.2f}  (expected level, may be fractional)")
-print(f"  confidence:    {frustration.confidence:.3f}")
-print("  legend / probabilities:")
-for level, label in frustration.legend.items():
-    print(f"    {level}: {frustration.probabilities[level]:.3f}  {label}")
-
-print(f"\nusage: {response.usage.input_tokens} in / {response.usage.output_tokens} out")
+print(f"Choice  department   {department.choice}  conf={department.confidence:.2f}")
+print(f"        {dist(department.probabilities)}")
+print(f"Noul    urgent       {urgent.noul:.2f}  (P(yes))")
+print(f"Score   frustration  {frustration.score:.2f}  conf={frustration.confidence:.2f}")
+print(f"        {dist(frustration.probabilities)}  (levels 0-2)")
