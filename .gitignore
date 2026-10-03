@@ -47,3 +47,17 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
+# Presenter notes (local only)
+SCRIPT.md
+EXPLAINER.md
+NOUL.md
+JEV_TYPES.md
+SCORE.md
+CHOICE.md
+MULTI_LABEL.md
+USE_CASES.md
+LinkedIn-dev.md
+UDEMY_LANGCHAIN_TYPESAFE.md
+UDEMY_LANGSMITH_TYPESAFE.md
+reference/
