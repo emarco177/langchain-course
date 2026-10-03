@@ -34,11 +34,11 @@ def run(task: str) -> None:
 
     # The full ChoiceAnswer lives in state.
     route = result["model_route"]
-    print(f"task:        {task!r}")
-    print(f"route:       {route.choice}  (confidence {route.confidence:.3f})")
-    print(f"distribution:{ {k: round(v, 3) for k, v in route.probabilities.items()} }")
-    answer = result["messages"][-1].text
-    print(f"answer:      {answer[:160]!r}{'…' if len(answer) > 160 else ''}")
+    reply = result["messages"][-1]
+    print(f"task:   {task!r}")
+    print(f"jev:    {route.choice}  (confidence {route.confidence:.3f})")
+    print(f"model:  {reply.response_metadata.get('model_name')}")
+    print(f"answer: {reply.text[:160]!r}{'…' if len(reply.text) > 160 else ''}")
     print()
 
 
