@@ -1,6 +1,6 @@
 """01 · One yes/no question. Jev returns a probability, not text.
 
-Needs TYPESAFE_API_KEY.
+Needs TYPESAFE_API_KEY for managed Jev, or `ollama pull tev1` for local.
 """
 
 import time
@@ -10,7 +10,13 @@ from langchain_typesafe import Noul, TypeSafeClassifier
 
 load_dotenv()
 
-classifier = TypeSafeClassifier()
+# Managed Jev:
+# classifier = TypeSafeClassifier()
+
+# Local Jev on Ollama. Same class, same API.
+classifier = TypeSafeClassifier(
+    base_url="http://localhost:11434", model="tev1", api_key="ollama"
+)
 
 # The key ("urgent") is how you read the answer back.
 QUESTIONS = {
@@ -25,12 +31,9 @@ elapsed_ms = (time.perf_counter() - start) * 1000
 
 urgency = response.nouls["urgent"].noul
 
-print(f"state:      {STATE!r}")
-print(f"urgent:     {urgency:.3f}  (probability the answer is yes)")
-print(
-    f"usage:      {response.usage.input_tokens} in / {response.usage.output_tokens} out"
-)
-print(f"latency:    {elapsed_ms:.0f} ms")
+print(f"model:    {response.model}")
+print(f"urgent:   {urgency:.3f}  (probability the answer is yes)")
+print(f"latency:  {elapsed_ms:.0f} ms")
 
 # Plain code branches on the number. No parsing.
 if urgency >= 0.8:
