@@ -24,6 +24,7 @@ This course takes you through building 7 real-world AI agent projects, from simp
 | 🔎  [Modern Search Agent](https://github.com/emarco177/ice_breaker/tree/project/search-agent) | Branch (`project/search-agent`) | Build search agents using LangChain v.1's `create_agent` interface with custom tools, Tavily integration, and structured outputs |
 | 🧠 [Agents Under The Hood](https://github.com/emarco177/langchain-course/tree/project/agents-under-the-hood) | Branch (`project/agents-under-the-hood`) | Understanding reasoning and acting patterns in AI agents |
 | 📄 [RAG Gist](https://github.com/emarco177/langchain-course/tree/project/rag-gist) | Branch (`project/rag-gist`) | The gist of retrieval-augmented generation |
+| ⚡ [System One Models](https://github.com/emarco177/langchain-course/tree/project/system-one-models) | Branch (`project/system-one-models`) | Fast, calibrated harness decisions with Jev: model routing and auto-mode tool gating middleware |
 | 📚 [Documentation Helper](https://github.com/emarco177/documentation-helper) | External Repo | Intelligent documentation assistant |
 | 💻 [Code Interpreter](https://github.com/emarco177/langchain-course/tree/project/code-interpreter) | Branch (`project/code-interpreter`) | AI-powered code execution and analysis |
 | 🪞 [Reflection Agent](https://github.com/emarco177/langgraph-course/tree/project/reflection-agent) | External Repo | Self-improving agent with reflection and critique capabilities |
