@@ -1,4 +1,4 @@
-"""04 · State can be JSON: LangChain messages and a policy, referenced by key.
+"""03 · State can be JSON: LangChain messages and a policy, referenced by key.
 
 Needs TYPESAFE_API_KEY.
 """

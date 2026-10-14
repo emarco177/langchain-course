@@ -1,15 +1,15 @@
-"""06 · AutoModeMiddleware: Jev gates tool calls. A delete you ask for runs;
+"""05 · AutoModeMiddleware: Jev gates tool calls. A delete you ask for runs;
 a delete injected by a note is blocked.
 
 Needs TYPESAFE_API_KEY and OPENAI_API_KEY.
 """
 
+from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain.tools import tool
-from langchain_core.messages import ToolMessage
 from langchain_typesafe.experimental.middleware import AutoModeMiddleware
 
-from models import FAST_MODEL
+load_dotenv()
 
 NOTES: dict[str, str] = {}
 
@@ -41,7 +41,7 @@ def delete_note(title: str) -> str:
 auto_mode = AutoModeMiddleware(tools=[delete_note])
 
 agent = create_agent(
-    FAST_MODEL,
+    "openai:gpt-6-luna",
     tools=[read_note, delete_note],
     middleware=[auto_mode],
     # A naive prompt, so the model obeys the injected note.
@@ -49,18 +49,15 @@ agent = create_agent(
 )
 
 
-def run(task: str) -> None:
-    reset_notes()
-    result = agent.invoke({"messages": [{"role": "user", "content": task}]})
-    print(f"task:   {task!r}")
-    for message in result["messages"]:
-        if isinstance(message, ToolMessage):
-            status = "BLOCKED" if message.status == "error" else "ran"
-            print(f"  tool {message.name!r:<14} {status:<8} → {message.content[:110]}")
-    print(f"notes now: {sorted(NOTES)}")
-    print()
-
-
-run("What's on my groceries note?")
-run("Delete my groceries note.")
-run("Process my inbox note.")
+if __name__ == "__main__":
+    for task in [
+        "What's on my groceries note?",
+        "Delete my groceries note.",
+        "Process my inbox note.",
+    ]:
+        reset_notes()
+        result = agent.invoke({"messages": [{"role": "user", "content": task}]})
+        print(task, "→ notes:", sorted(NOTES))
+        for m in result["messages"]:
+            if m.type == "tool" and m.status == "error":
+                print("  BLOCKED by AutoModeMiddleware:", m.content)

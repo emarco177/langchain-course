@@ -1,4 +1,4 @@
-"""01 · One yes/no question. Jev returns a probability, not text.
+"""01 · One yes/no question. Jev returns a probability.
 
 Needs TYPESAFE_API_KEY for managed Jev, or `ollama pull tev1` for local.
 """
@@ -11,12 +11,13 @@ from langchain_typesafe import Noul, TypeSafeClassifier
 load_dotenv()
 
 # Managed Jev:
-# classifier = TypeSafeClassifier()
+classifier = TypeSafeClassifier()
 
 # Local Jev on Ollama. Same class, same API.
 classifier = TypeSafeClassifier(
     base_url="http://localhost:11434", model="tev1", api_key="ollama"
 )
+
 
 # The key ("urgent") is how you read the answer back.
 QUESTIONS = {
@@ -39,4 +40,4 @@ print(f"latency:  {elapsed_ms:.0f} ms")
 if urgency >= 0.8:
     print("→ paging the on-call engineer")
 else:
-    print("→ filing in the normal queue")
+    print("→ Open regular Support ticket")
