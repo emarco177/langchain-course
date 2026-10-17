@@ -1,0 +1,25 @@
+[project]
+name = "agent-middleware"
+version = "0.1.0"
+description = "Agent middleware with LangChain: observe, guard, and steer the agent loop"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=1.4.6",
+    "langchain-openai>=1.0.0",
+    "langgraph>=1.0.0",
+    "langsmith",
+    "python-dotenv>=1.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+]
+
+[tool.black]
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
