@@ -11,22 +11,12 @@ from langchain.agents.middleware import HumanInTheLoopMiddleware
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.types import Command
 
-from desk import REFUNDS, SYSTEM_PROMPT, TOOLS, reset, short
+from desk import REFUNDS, SYSTEM_PROMPT, TOOLS, reset, short, traced
 
 load_dotenv()
 
 TASK = "Refund order B200 in full, it arrived broken."
-DECISIONS = {
-    "approve": {"type": "approve"},
-    "edit": {
-        "type": "edit",
-        "edited_action": {
-            "name": "refund_order",
-            "args": {"order_id": "B200", "amount": 100.0},
-        },
-    },
-    "reject": {"type": "reject", "message": "Send it to the returns team instead."},
-}
+
 
 agent = create_agent(
     "openai:gpt-6-luna",
@@ -44,26 +34,35 @@ agent = create_agent(
 )
 
 
+def ask_human(action: dict) -> dict:
+    """You are the human: approve, edit or reject the paused tool call."""
+    print(f"paused:   {action['name']}({action['args']})")
+    print(f"refunds:  {REFUNDS}  (nothing ran yet)")
+    choice = input("          [a]pprove / [e]dit / [r]eject? ").strip().lower()[:1]
+    if choice == "e":
+        amount = float(input("          new amount: $"))
+        args = {**action["args"], "amount": amount}
+        return {"type": "edit", "edited_action": {"name": action["name"], "args": args}}
+    if choice == "r":
+        reason = input("          reason for the agent: ")
+        return {"type": "reject", "message": reason}
+    return {"type": "approve"}
+
+
 if __name__ == "__main__":
-    for thread_id, decision in DECISIONS.items():
-        reset()
-        config = {"configurable": {"thread_id": thread_id}}
+    reset()
+    config = {"configurable": {"thread_id": "desk-1"}}
+    print(f"user:     {TASK!r}")
+    with traced(TASK):
         result = agent.invoke(
             {"messages": [{"role": "user", "content": TASK}]}, config, version="v2"
         )
-        action = result.interrupts[0].value["action_requests"][0]
-        print(f"thread:   {thread_id}")
-        print(f"paused:   {action['name']}({action['args']})")
-        print(f"refunds:  {REFUNDS}  (before resume)")
-        # Resuming is a new invoke on the same thread, carrying the human's decision.
-        result = agent.invoke(
-            Command(resume={"decisions": [decision]}), config, version="v2"
-        )
-        print(f"decision: {decision}")
-        print(f"refunds:  {REFUNDS}  (after resume)")
-        if result.interrupts:  # the model asked for another gated call
-            again = result.interrupts[0].value["action_requests"][0]
-            print(f"paused:   again, {again['name']}({again['args']})")
-        else:
-            print(f"answer:   {short(result.value['messages'][-1].text)}")
-        print()
+        # Every pause is saved state; resuming is a new invoke carrying your decision.
+        while result.interrupts:
+            action = result.interrupts[0].value["action_requests"][0]
+            decision = ask_human(action)
+            result = agent.invoke(
+                Command(resume={"decisions": [decision]}), config, version="v2"
+            )
+            print(f"refunds:  {REFUNDS}  (after {decision['type']})")
+        print(f"answer:   {short(result.value['messages'][-1].text)}")
