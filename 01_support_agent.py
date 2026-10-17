@@ -6,7 +6,7 @@ Needs OPENAI_API_KEY.
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 
-from desk import REFUNDS, SYSTEM_PROMPT, TOOLS, ask, reset
+from desk import REFUNDS, SYSTEM_PROMPT, TOOLS, ask, reset, traced
 
 load_dotenv()
 
@@ -19,6 +19,6 @@ if __name__ == "__main__":
         "Refund order B200 in full, it arrived broken.",
     ]:
         reset()
-        ask(agent, task)
-        print(f"refunds: {REFUNDS}")
-        print()
+        with traced(task):
+            ask(agent, task)
+            print(f"refunds: {REFUNDS}")

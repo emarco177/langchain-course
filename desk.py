@@ -1,6 +1,11 @@
 """Shared support-desk data and tools. Every step imports these."""
 
+import sys
+from contextlib import contextmanager
+
+import langsmith
 from langchain.tools import tool
+from langsmith.utils import tracing_is_enabled
 
 ORDERS = {
     "A100": {
@@ -75,3 +80,18 @@ def ask(agent, text: str, **kwargs) -> dict:
     print(f"tools:   {tools}")
     print(f"answer:  {short(result['messages'][-1].text)}")
     return result
+
+
+@contextmanager
+def traced(name: str):
+    """Group every call in the block under one LangSmith run, print its link, then wait for Enter."""
+    if not tracing_is_enabled():
+        yield
+        return
+    with langsmith.trace(name) as run:
+        yield
+    langsmith.Client().flush()
+    print(f"trace:   {run.get_url()}")
+    if sys.stdin.isatty():  # piped or CI runs don't block
+        input("         open the trace, then press Enter…")
+    print()
