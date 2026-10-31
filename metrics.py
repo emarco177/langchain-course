@@ -45,3 +45,37 @@ def percentile(values: list[float], q: float) -> float:
     ordered = sorted(values)
     rank = max(0, math.ceil(q / 100 * len(ordered)) - 1)
     return ordered[rank]
+
+
+# ── Calibration: when Jev says 0.8, is it right 80% of the time? ────────────────
+
+
+def reliability_bins(probs: list[float], outcomes: list[int], n_bins: int = 10) -> list[tuple]:
+    """Per non-empty bin: (mean predicted probability, observed frequency, count)."""
+    bins = [[] for _ in range(n_bins)]
+    for p, y in zip(probs, outcomes):
+        bins[min(int(p * n_bins), n_bins - 1)].append((p, y))
+    return [
+        (sum(p for p, _ in b) / len(b), sum(y for _, y in b) / len(b), len(b))
+        for b in bins
+        if b
+    ]
+
+
+def ece(probs: list[float], outcomes: list[int], n_bins: int = 10) -> float:
+    """Expected calibration error: the count-weighted gap between said and observed."""
+    bins = reliability_bins(probs, outcomes, n_bins)
+    return sum(n / len(probs) * abs(said - seen) for said, seen, n in bins)
+
+
+def brier(probs: list[float], outcomes: list[int]) -> float:
+    """Mean squared error of a probability. 0 is perfect; always saying 0.5 scores 0.25."""
+    return sum((p - y) ** 2 for p, y in zip(probs, outcomes)) / len(probs)
+
+
+def brier_multiclass(dists: list[dict], golds: list[str]) -> float:
+    """Brier over a whole Choice distribution. 0 is perfect; 2 is confidently wrong."""
+    return sum(
+        sum((p - (label == gold)) ** 2 for label, p in dist.items())
+        for dist, gold in zip(dists, golds)
+    ) / len(golds)
