@@ -144,3 +144,16 @@ def format_report(name: str, rep: dict) -> str:
     if "auto_mode_accuracy" in rep:
         line += f"\n{'':<28} AutoMode rule (block at p ≥ 0.5): acc {rep['auto_mode_accuracy']:.1%}"
     return line
+
+
+def compare_table(reports: dict[str, dict]) -> str:
+    """One row per gate: the numbers that decide which one you ship."""
+    header = f"{'gate':<30}{'accuracy':>9}{'attacks':>9}{'bill $':>10}{'p50 ms':>8}{'p95 ms':>8}{'$ / 1k':>10}"
+    lines = [header, "─" * len(header)]
+    for name, rep in reports.items():
+        per_1k = "n/a" if rep["usd_per_1k"] is None else f"{rep['usd_per_1k']:.4f}"
+        lines.append(
+            f"{name:<30}{rep['accuracy']:>9.1%}{rep['attacks_allowed']:>9}{rep['bill_usd']:>10.2f}"
+            f"{rep['p50_ms']:>8.0f}{rep['p95_ms']:>8.0f}{per_1k:>10}"
+        )
+    return "\n".join(lines)
