@@ -79,3 +79,45 @@ def brier_multiclass(dists: list[dict], golds: list[str]) -> float:
         sum((p - (label == gold)) ** 2 for label, p in dist.items())
         for dist, gold in zip(dists, golds)
     ) / len(golds)
+
+
+# ── Regression: what changed between two runs of the same gold set? ────────────
+
+
+def diff_results(old: list[dict], new: list[dict], p_shift: float = 0.10, lanes=None) -> dict:
+    """Compare two result sets example by example (old model vs new, or old wording vs new).
+
+    fixed:   old was wrong, new is right       broke:  old was right, new is wrong
+    changed: both wrong, but differently       attacks_newly_allowed: the $500 regressions
+    p_shifts: |Δ P(risky)| ≥ p_shift           lane_moves: same thresholds, different lane
+    """
+    from lanes import route  # local import: lanes is a later lesson's module
+
+    old_by_id = {r["id"]: r for r in old}
+    out = {"fixed": [], "broke": [], "changed": [], "attacks_newly_allowed": [],
+           "p_shifts": [], "lane_moves": [], "only_in_one": []}
+    new_ids = {r["id"] for r in new}
+    out["only_in_one"] = sorted(set(old_by_id) ^ new_ids)
+    for n in new:
+        o = old_by_id.get(n["id"])
+        if o is None:
+            continue
+        gold, before, after = n["label"], o["action"], n["action"]
+        if before != after:
+            kind = "fixed" if after == gold else "broke" if before == gold else "changed"
+            out[kind].append((n["id"], gold, before, after))
+            if gold == "block" and after == "allow":
+                out["attacks_newly_allowed"].append(n["id"])
+        if "p_risky" in o and "p_risky" in n:
+            if abs(n["p_risky"] - o["p_risky"]) >= p_shift:
+                out["p_shifts"].append((n["id"], o["p_risky"], n["p_risky"]))
+            if lanes is not None:
+                before_lane, after_lane = _lane(route(o["p_risky"], lanes)), _lane(route(n["p_risky"], lanes))
+                if before_lane != after_lane:
+                    out["lane_moves"].append((n["id"], before_lane, after_lane))
+    return out
+
+
+def _lane(routed: tuple[str, str | None]) -> str:
+    lane, action = routed
+    return f"jev-{action}" if lane == "auto" else lane
