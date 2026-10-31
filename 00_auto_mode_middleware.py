@@ -1,5 +1,7 @@
-"""05 · AutoModeMiddleware: Jev gates tool calls. A delete you ask for runs;
-a delete injected by a note is blocked.
+"""00 · Starting point, from project/system-one-models: AutoModeMiddleware gates tool
+calls with Jev. A delete you ask for runs; a delete injected by a note is blocked.
+
+This branch asks: can we trust Jev's numbers enough to let this gate act alone?
 
 Needs TYPESAFE_API_KEY and OPENAI_API_KEY.
 """
