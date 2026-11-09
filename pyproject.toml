@@ -1,0 +1,22 @@
+[project]
+name = "langchain-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Marina Ganopolsky", email = "ganopolsky.marina@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "black>=26.10.1",
+    "isort>=9.0.2",
+    "langchain-anthropic>=1.7.10",
+    "python-dotenv>=1.2.4",
+]
+
+[project.scripts]
+langchain-project = "langchain_project:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
