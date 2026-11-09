@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import PromptTemplate
+from langchain_ollama import ChatOllama
 
 load_dotenv()
 
@@ -60,8 +61,9 @@ There are bipartisan federal proposals such as the FRONTIER Act that can be buil
     )
 
 
-    llm = ChatAnthropic(model="claude-sonnet-5-5", max_tokens=1000)
-
+    llm = ChatAnthropic(model="claude-sonnet-5-5", max_tokens=200)
+    #llm = ChatOllama(model="gemma4:12b", max_tokens=200)
+    #llm = ChatOllama(model="gemma3:4b")
     chain = summary_prompt_template | llm
     response = chain.invoke({"information": information})
     print(response.text)
