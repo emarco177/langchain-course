@@ -1,15 +1,25 @@
 [project]
-name = "ice-breaker"
+name = "langchain-course"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+authors = [
+    { name = "ichatters4", email = "icwrxs4@gmail.com" }
+]
 requires-python = ">=3.11"
 dependencies = [
-    "black>=25.9.0",
-    "isort>=7.0.0",
-    "langchain>=1.0.4",
-    "langchain-openai>=1.0.2",
-    "langchain-tavily>=0.2.13",
-    "python-dotenv>=1.2.1",
-    "tavily-python>=0.7.12",
+    "black>=26.10.1",
+    "isort>=9.0.2",
+    "langchain>=1.5.0",
+    "langchain-core>=1.8.0",
+    "langchain-openai>=1.7.4",
+    "langchain-tavily>=0.2.18",
+    "python-dotenv==1.2.4",
 ]
+
+[project.scripts]
+langchain-course = "langchain_course:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
