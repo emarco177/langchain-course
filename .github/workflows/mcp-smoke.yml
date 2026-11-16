@@ -1,0 +1,37 @@
+# Weekly check that the MCP section still works, so you hear about a moved URL
+# or a breaking release from a failed run, not from a student.
+#
+# GitHub only runs scheduled workflows from the default branch. To switch the
+# schedule on, copy this file to main. It always tests this branch.
+name: mcp-smoke
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1" # Mondays 06:17 UTC
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: project/mcp
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Locked versions (what the videos show)
+        run: |
+          uv sync --locked
+          uv run python check.py
+
+      - name: Latest versions (early warning for breaking releases)
+        run: |
+          uv sync --upgrade
+          uv run python check.py
+          uv run python -c "import importlib; [importlib.import_module(m) for m in ('02_create_agent', '03_langgraph')]"
+
+      - name: Fallback server still starts
+        run: |
+          uv run python 05_docs_server.py &
+          sleep 8
+          MCP_URL=http://localhost:8000/mcp uv run python check.py

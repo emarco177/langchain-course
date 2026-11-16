@@ -1,0 +1,27 @@
+[project]
+name = "mcp-lessons"
+version = "0.1.0"
+description = "Model Context Protocol with LangChain: one server, three hosts"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastmcp>=4.2.0",
+    "httpx>=0.28.0",
+    "langchain[mcp]>=1.5.0",
+    "langchain-openai>=1.0.0",
+    "langgraph>=1.2.0",
+    "langsmith",
+    "python-dotenv>=1.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+]
+
+[tool.black]
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
