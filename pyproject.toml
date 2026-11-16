@@ -1,14 +1,14 @@
 [project]
-name = "langchain-course"
+name = "langchain-course-1"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "black>=26.1.0",
-    "isort>=7.0.0",
-    "langchain>=1.2.10",
-    "langchain-ollama>=1.0.1",
-    "langchain-openai>=1.1.9",
-    "python-dotenv>=1.2.1",
+    "black>=26.10.1",
+    "isort>=9.0.2",
+    "langchain>=1.5.0",
+    "langchain-ollama>=1.1.0",
+    "langchain-openai>=1.7.4",
+    "python-dotenv>=1.2.4",
 ]
