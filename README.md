@@ -15,11 +15,11 @@ Follow the commits in order to learn RAG concepts incrementally:
 
 | Step | Commit | Description |
 |------|--------|-------------|
-| 1 | `598dee4` | **Initial Setup** - Project structure with dependencies (LangChain, OpenAI, Pinecone), sample data, and basic configuration |
-| 2 | `2e34caf` | **Add Imports** - Import LangChain components for document processing: UnstructuredLoader, CharacterTextSplitter, OpenAIEmbeddings, PineconeVectorStore |
-| 3 | `9066596` | **Document Ingestion Pipeline** - Complete ingestion: load text documents, split into chunks, generate embeddings, store in Pinecone |
-| 4 | `5b0c33f` | **Naive RAG Implementation** - Manual step-by-step retrieval chain demonstrating core RAG concepts without LCEL |
-| 5 | `5e4d009` | **LCEL-Based RAG** - Declarative retrieval chain using LangChain Expression Language with streaming, async, and composability |
+| 1 | `0966b26` | **Initial Setup** - Project structure with dependencies (LangChain, OpenAI, Pinecone), sample data, and basic configuration |
+| 2 | `c93c735` | **Add Imports** - Import LangChain components for document processing: UnstructuredLoader, CharacterTextSplitter, OpenAIEmbeddings, PineconeVectorStore |
+| 3 | `bfc0736` | **Document Ingestion Pipeline** - Complete ingestion: load text documents, split into chunks, generate embeddings, store in Pinecone |
+| 4 | `907cdec` | **Naive RAG Implementation** - Manual step-by-step retrieval chain demonstrating core RAG concepts without LCEL |
+| 5 | `e1b66dd` | **LCEL-Based RAG** - Declarative retrieval chain using LangChain Expression Language with streaming, async, and composability |
 
 ## Key Components
 
