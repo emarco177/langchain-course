@@ -16,7 +16,7 @@ Follow the commits in order to learn RAG concepts incrementally:
 | Step | Commit | Description |
 |------|--------|-------------|
 | 1 | `598dee4` | **Initial Setup** - Project structure with dependencies (LangChain, OpenAI, Pinecone), sample data, and basic configuration |
-| 2 | `2e34caf` | **Add Imports** - Import LangChain components for document processing: TextLoader, CharacterTextSplitter, OpenAIEmbeddings, PineconeVectorStore |
+| 2 | `2e34caf` | **Add Imports** - Import LangChain components for document processing: UnstructuredLoader, CharacterTextSplitter, OpenAIEmbeddings, PineconeVectorStore |
 | 3 | `9066596` | **Document Ingestion Pipeline** - Complete ingestion: load text documents, split into chunks, generate embeddings, store in Pinecone |
 | 4 | `5b0c33f` | **Naive RAG Implementation** - Manual step-by-step retrieval chain demonstrating core RAG concepts without LCEL |
 | 5 | `5e4d009` | **LCEL-Based RAG** - Declarative retrieval chain using LangChain Expression Language with streaming, async, and composability |
@@ -24,7 +24,7 @@ Follow the commits in order to learn RAG concepts incrementally:
 ## Key Components
 
 ### Ingestion (`ingestion.py`)
-- **TextLoader**: Load documents from text files
+- **UnstructuredLoader**: Load documents from text files
 - **CharacterTextSplitter**: Split documents into manageable chunks (1000 chars)
 - **OpenAIEmbeddings**: Convert text chunks to vector embeddings
 - **PineconeVectorStore**: Store and index vectors for similarity search
@@ -48,14 +48,19 @@ PINECONE_API_KEY=your_pinecone_key
 INDEX_NAME=your_index_name
 ```
 
-3. Run ingestion to populate the vector store:
+3. Create the Pinecone index with the script (an index created in the Pinecone console has a schema, and ingestion fails on it with a 400 Bad Request):
 ```bash
-python ingestion.py
+uv run create_index.py
 ```
 
-4. Run the RAG pipeline:
+4. Run ingestion to populate the vector store:
 ```bash
-python main.py
+uv run ingestion.py
+```
+
+5. Run the RAG pipeline:
+```bash
+uv run main.py
 ```
 
 ## Why LCEL?

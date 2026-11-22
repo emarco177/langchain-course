@@ -10,7 +10,11 @@ load_dotenv()
 
 if __name__ == "__main__":
     print("Ingesting...")
-    loader = UnstructuredLoader(file_path="/Users/edenmarco/GithubProjects/langchain-course/mediumblog1.txt", chunking_strategy="basic", max_characters=1000000)
+    loader = UnstructuredLoader(
+        file_path="mediumblog1.txt",
+        chunking_strategy="basic",
+        max_characters=1000000,
+    )
     document = loader.load()
 
     print("splitting...")
