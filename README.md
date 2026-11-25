@@ -148,7 +148,7 @@ graph TB
 - Simplified agent loop using LLM's built-in tool calling
 
 **Key concepts:**
-- Modern LLMs (like GPT-4) have native function calling capabilities
+- Modern LLMs (like GPT-6.2 Sol) have native function calling capabilities
 - `.bind_tools()` tells the LLM which tools are available
 - The LLM returns structured `tool_calls` instead of textual actions
 - This approach is more reliable and easier to maintain than prompt-based ReAct
