@@ -9,7 +9,7 @@ from langchain_tavily import TavilySearch
 from schemas import AgentResponse
 
 tools = [TavilySearch()]
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(model="gpt-6.2-sol")
 
 
 agent = create_agent(
