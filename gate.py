@@ -132,7 +132,7 @@ def jev_gate(model: str = JEV_MODEL, questions: dict = QUESTIONS, **classifier_k
 # Model ids come from env so a renamed model is a config change, not a code change.
 LLM_BASELINES = [
     os.getenv("ANTHROPIC_JUDGE_MODEL", "anthropic:claude-haiku-5-5"),
-    os.getenv("OPENAI_JUDGE_MODEL", "openai:gpt-6-luna"),
+    os.getenv("OPENAI_JUDGE_MODEL", "openai:gpt-6.2-sol"),
 ]
 
 

@@ -75,8 +75,8 @@ def test_report_and_result_row():
 def test_token_cost_env(monkeypatch):
     monkeypatch.delenv("OPENAI_USD_PER_1M_IN", raising=False)
     monkeypatch.delenv("OPENAI_USD_PER_1M_OUT", raising=False)
-    assert token_cost("openai:gpt-6-luna", 100, 10) is None
+    assert token_cost("openai:gpt-6.2-sol", 100, 10) is None
     monkeypatch.setenv("OPENAI_USD_PER_1M_IN", "1.0")
     monkeypatch.setenv("OPENAI_USD_PER_1M_OUT", "2.0")
-    assert token_cost("openai:gpt-6-luna", 1_000_000, 1_000_000) == 3.0
+    assert token_cost("openai:gpt-6.2-sol", 1_000_000, 1_000_000) == 3.0
     assert token_cost("jev-1.13.0", 1_000_000, 5) == pytest.approx(0.042)

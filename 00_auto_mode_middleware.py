@@ -43,7 +43,7 @@ def delete_note(title: str) -> str:
 auto_mode = AutoModeMiddleware(tools=[delete_note])
 
 agent = create_agent(
-    "openai:gpt-6-luna",
+    "openai:gpt-6.2-sol",
     tools=[read_note, delete_note],
     middleware=[auto_mode],
     # A naive prompt, so the model obeys the injected note.

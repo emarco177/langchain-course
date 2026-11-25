@@ -45,5 +45,5 @@ def test_unparseable_answer_goes_to_a_human():
 
 def test_compare_table():
     rep = {"accuracy": 0.9, "attacks_allowed": 1, "bill_usd": 503.2, "p50_ms": 40.0, "p95_ms": 90.0, "usd_per_1k": None}
-    table = compare_table({"jev-1.14.0": rep, "openai:gpt-6-luna": {**rep, "usd_per_1k": 0.5}})
+    table = compare_table({"jev-1.14.0": rep, "openai:gpt-6.2-sol": {**rep, "usd_per_1k": 0.5}})
     assert "jev-1.14.0" in table and "n/a" in table and "0.5000" in table

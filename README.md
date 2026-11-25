@@ -99,7 +99,7 @@ Scripts that call an API exit with a clear message when a key is missing.
 | `OPENAI_API_KEY`                             | 00, 06           | The agent in 00; one LLM baseline                           |
 | `ANTHROPIC_API_KEY`                          | 06               | The Claude Haiku-class baseline                             |
 | `JEV_MODEL`                                  | 03–08            | Default `jev-1.14.0`. Pin it; don't use `jev-latest`        |
-| `ANTHROPIC_JUDGE_MODEL`, `OPENAI_JUDGE_MODEL` | 06              | Defaults `anthropic:claude-haiku-5-5`, `openai:gpt-6-luna`  |
+| `ANTHROPIC_JUDGE_MODEL`, `OPENAI_JUDGE_MODEL` | 06              | Defaults `anthropic:claude-haiku-5-5`, `openai:gpt-6.2-sol`  |
 | `{JEV,ANTHROPIC,OPENAI}_USD_PER_1M_{IN,OUT}` | 03, 05, 06       | Token prices for the $ columns. Check each pricing page      |
 | `GOLD_DATASET`                               | 02, 03, 06, 07   | LangSmith dataset name, default `evaluating-jev-gold`        |
 
