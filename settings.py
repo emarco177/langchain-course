@@ -19,7 +19,7 @@ warnings.filterwarnings("ignore", message=".*langchain.mcp.*beta.*")
 MCP_URL = os.getenv("MCP_URL", "https://docs.langchain.com/mcp")
 
 # The chat model for the agents in 02 and 03.
-MODEL = os.getenv("MODEL", "openai:gpt-6-luna")
+MODEL = os.getenv("MODEL", "openai:gpt-6.2-sol")
 
 # The docs index 05_docs_server.py serves.
 LLMS_TXT_URL = os.getenv("LLMS_TXT_URL", "https://docs.langchain.com/llms.txt")
