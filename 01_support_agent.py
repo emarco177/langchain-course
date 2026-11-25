@@ -10,7 +10,7 @@ from desk import REFUNDS, SYSTEM_PROMPT, TOOLS, ask, reset, traced
 
 load_dotenv()
 
-agent = create_agent("openai:gpt-6-luna", tools=TOOLS, system_prompt=SYSTEM_PROMPT)
+agent = create_agent("openai:gpt-6.2-sol", tools=TOOLS, system_prompt=SYSTEM_PROMPT)
 
 
 if __name__ == "__main__":

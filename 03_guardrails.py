@@ -32,7 +32,7 @@ def block_abuse(state, runtime):
 
 
 agent = create_agent(
-    "openai:gpt-6-luna",
+    "openai:gpt-6.2-sol",
     tools=TOOLS,
     system_prompt=SYSTEM_PROMPT,
     middleware=[

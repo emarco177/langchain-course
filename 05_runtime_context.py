@@ -17,7 +17,7 @@ from desk import REFUNDS, SYSTEM_PROMPT, TOOLS, ask, reset
 load_dotenv()
 
 FAST = init_chat_model("openai:gpt-6-luna")
-POWERFUL = init_chat_model("openai:gpt-6-sol")
+POWERFUL = init_chat_model("openai:gpt-6.2-sol")
 
 
 @dataclass

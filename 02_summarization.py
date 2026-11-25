@@ -13,13 +13,13 @@ from desk import SYSTEM_PROMPT, TOOLS, reset, short
 load_dotenv()
 
 agent = create_agent(
-    "openai:gpt-6-luna",
+    "openai:gpt-6.2-sol",
     tools=TOOLS,
     system_prompt=SYSTEM_PROMPT,
     middleware=[
         # Tiny limits so it fires in a short demo. Real agents use ("fraction", 0.8) or ("tokens", ...).
         SummarizationMiddleware(
-            model="openai:gpt-6-luna",
+            model="openai:gpt-6.2-sol",
             trigger=("messages", 8),
             keep=("messages", 4),
         ),

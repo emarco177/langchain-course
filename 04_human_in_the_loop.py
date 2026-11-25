@@ -19,7 +19,7 @@ TASK = "Refund order B200 in full, it arrived broken."
 
 
 agent = create_agent(
-    "openai:gpt-6-luna",
+    "openai:gpt-6.2-sol",
     tools=TOOLS,
     system_prompt=SYSTEM_PROMPT,
     # Interrupts need somewhere to park the state until a human answers.
