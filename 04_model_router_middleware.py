@@ -19,7 +19,7 @@ router = ModelRouterMiddleware(
             criteria="Direct lookups, short factual answers, and small localized edits.",
         ),
         "powerful": ModelChoice(
-            model="openai:gpt-6-sol",
+            model="openai:gpt-6.2-sol",
             criteria="Multi-step reasoning, architecture, and high-stakes decisions.",
         ),
     },

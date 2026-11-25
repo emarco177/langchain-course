@@ -46,7 +46,7 @@ One commit per step. Check out a commit to see the lesson up to that point.
 | 01  | `HASH1` | [`01_hello_jev.py`](01_hello_jev.py)                             | Managed Jev or local `tev1`: same class, same answer  |
 | 02  | `HASH2` | [`02_three_primitives.py`](02_three_primitives.py)               | Three answers from one call                           |
 | 03  | `HASH3` | [`03_messages_and_state.py`](03_messages_and_state.py)           | Messages and a policy inside JSON state               |
-| 04  | `HASH4` | [`04_model_router_middleware.py`](04_model_router_middleware.py) | Easy task → `gpt-6-luna`, hard task → `gpt-6-sol`     |
+| 04  | `HASH4` | [`04_model_router_middleware.py`](04_model_router_middleware.py) | Easy task → `gpt-6-luna`, hard task → `gpt-6.2-sol`     |
 | 05  | `HASH5` | [`05_auto_mode_middleware.py`](05_auto_mode_middleware.py)       | Your delete runs; an injected delete is **BLOCKED**   |
 
 ## Quick start
