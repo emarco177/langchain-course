@@ -26,14 +26,13 @@ This course takes you through building 7 real-world AI agent projects, from simp
 | 📄 [RAG Gist](https://github.com/emarco177/langchain-course/tree/project/rag-gist) | Branch (`project/rag-gist`) | The gist of retrieval-augmented generation |
 | ⚡ [System One Models](https://github.com/emarco177/langchain-course/tree/project/system-one-models) | Branch (`project/system-one-models`) | Fast, calibrated harness decisions with Jev: model routing and auto-mode tool gating middleware |
 | 📚 [Documentation Helper](https://github.com/emarco177/documentation-helper) | External Repo | Intelligent documentation assistant |
-| 💻 [Code Interpreter](https://github.com/emarco177/langchain-course/tree/project/code-interpreter) | Branch (`project/code-interpreter`) | AI-powered code execution and analysis |
 | 🪞 [Reflection Agent](https://github.com/emarco177/langgraph-course/tree/project/reflection-agent) | External Repo | Self-improving agent with reflection and critique capabilities |
 | 🔄 [Reflexion Agent](https://github.com/emarco177/langgraph-course/tree/project/reflexion-agent) | External Repo | Advanced self-correcting agent using reflexion techniques |
 | 🤖 [Agentic RAG](https://github.com/emarco177/langgraph-course/tree/project/agentic-rag) | External Repo | Advanced retrieval-augmented generation system |
 
 ## 📚 Course Highlights 
 
-- **7 Complete Projects** - From beginner to advanced implementations including Ice Breaker, Documentation Helper, and Code Interpreter
+- **7 Complete Projects** - From beginner to advanced implementations including Search Agent, Documentation Helper, and Agentic RAG
 - **Real-World Applications** - Build agents that solve actual problems with live APIs
 - **Modern Tech Stack** - LangChain v0.3+, LangGraph, Pinecone, FAISS, Streamlit
 - **Practical Skills** - Learn RAG, vector databases, prompt engineering, and agent workflows
@@ -43,7 +42,7 @@ This course takes you through building 7 real-world AI agent projects, from simp
 
 ### Phase 1: Foundations
 1. **Hello World Chain** - Basic agent structure and LLM integration
-2. **Code Interpreter** - Tool calling and code execution capabilities
+2. **Search Agent** - Tool calling with `create_agent`, Tavily and structured outputs
 
 ### Phase 2: Real-World Applications
 3. **Ice Breaker** - Data collection and social media integration
@@ -79,8 +78,8 @@ This course takes you through building 7 real-world AI agent projects, from simp
    uv sync
    uv run python main.py
    
-   # Progress to Code Interpreter
-   git checkout project/code-interpreter
+   # Progress to the Search Agent
+   git checkout project/search-agent
    uv sync
    uv run python main.py
    ```
