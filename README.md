@@ -79,7 +79,7 @@ We start here — this is how you'd normally build an agent. Reading through the
 
 **What LangChain gives you:**
 - `@tool` → auto-generates JSON tool schema from your function
-- `init_chat_model()` → swap providers by changing one string (`"ollama:qwen3"` → `"openai:gpt-4o"`)
+- `init_chat_model()` → swap providers by changing one string (`"ollama:qwen3"` → `"openai:gpt-6.2-sol"`)
 - `bind_tools()` → attaches tool definitions to the LLM
 - `ToolMessage` → handles the tool result format
 - Typed message objects (`SystemMessage`, `HumanMessage`) instead of raw dicts
