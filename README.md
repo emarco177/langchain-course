@@ -21,7 +21,7 @@ This course takes you through building 7 real-world AI agent projects, from simp
 | Project | Type | Description |
 |---------|------|-------------|
 | 👋 [LangChain Hello World](https://github.com/emarco177/langchain-course/tree/project/hello-world) | Branch (`project/hello-world`) | Your first AI agent - basic structure and LLM integration |
-| 🔎  [Modern Search Agent](https://github.com/emarco177/ice_breaker/tree/project/search-agent) | Branch (`project/search-agent`) | Build search agents using LangChain v.1's `create_agent` interface with custom tools, Tavily integration, and structured outputs |
+| 🔎  [Modern Search Agent](https://github.com/emarco177/langchain-course/tree/project/search-agent) | Branch (`project/search-agent`) | Build search agents using LangChain v.1's `create_agent` interface with custom tools, Tavily integration, and structured outputs |
 | 🧠 [Agents Under The Hood](https://github.com/emarco177/langchain-course/tree/project/agents-under-the-hood) | Branch (`project/agents-under-the-hood`) | Understanding reasoning and acting patterns in AI agents |
 | 📄 [RAG Gist](https://github.com/emarco177/langchain-course/tree/project/rag-gist) | Branch (`project/rag-gist`) | The gist of retrieval-augmented generation |
 | ⚡ [System One Models](https://github.com/emarco177/langchain-course/tree/project/system-one-models) | Branch (`project/system-one-models`) | Fast, calibrated harness decisions with Jev: model routing and auto-mode tool gating middleware |
@@ -87,8 +87,8 @@ This course takes you through building 7 real-world AI agent projects, from simp
    **For external repository projects:**
    ```bash
    # Clone specific project repositories
-   git clone https://github.com/emarco177/ice_breaker
-   cd ice_breaker
+   git clone https://github.com/emarco177/langchain-course
+   cd langchain-course
    # Follow project-specific setup instructions
    ```
 
@@ -98,7 +98,6 @@ This course takes you through building 7 real-world AI agent projects, from simp
    - Checkout previous commits to understand the development process
 
 **External Projects:**
-- [Ice Breaker](https://github.com/emarco177/ice_breaker) - Social media profile analyzer
 - [Medium Analyzer](https://github.com/emarco177/blog-analyzer) - Content analysis and insights generator
 - [Documentation Helper](https://github.com/emarco177/documentation-helper) - AI documentation assistant
 - [Reflection Agent](https://github.com/emarco177/langgraph-course/tree/project/reflection-agent) - Self-improving agent with reflection and critique capabilities
