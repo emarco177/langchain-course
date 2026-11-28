@@ -58,7 +58,7 @@ This course takes you through building 7 real-world AI agent projects, from simp
 - **This is not a beginner course** - Basic software engineering concepts needed
 - Familiarity with: git, Python, environment variables, classes, testing and debugging
 - Python 3.10+
-- Any Python package manager (uv, poetry, pipenv) - but NOT conda!
+- [uv](https://docs.astral.sh/uv/) package manager (the course uses uv for all setup commands)
 - Access to an LLM (can be open source via Ollama, or cloud providers like OpenAI, Anthropic, Gemini)
 - No Machine Learning experience needed
 
